@@ -5,6 +5,10 @@ error_array_0 = []
 error_array_1 = []
 error_array_2 = []
 error_array_3 = []
+answer_array_0 = []
+answer_array_1 = []
+answer_array_2 = []
+answer_array_3 = []
 
 # sigmoid function
 def sigmoid(x, derivative = False):
@@ -52,29 +56,32 @@ for iteration in range(10000):
     random_weights += np.dot(input_dataset.T, weighted_inputs_change)
     
     if iteration % 1000 == 0:
-        #print ("calculated_answers: ", calculated_answers)
-        #print ("error: ", error)
-        #print ("change: ", weighted_inputs_change)
-        #print ("new weights: ", random_weights)
         error_array_0.append(error[0])
         error_array_1.append(error[1])
         error_array_2.append(error[2])
         error_array_3.append(error[3])
+        answer_array_0.append(calculated_answers[0])
+        answer_array_1.append(calculated_answers[1])
+        answer_array_2.append(calculated_answers[2])
+        answer_array_3.append(calculated_answers[3])
     
 print ("Output after Training")
 print (calculated_answers)
 
-plt.figure(1)
-ax = plt.subplot(211)
+#
+error_plot = plt.subplot(211)
 x = np.arange(0, 10000, 1000)
 plt.plot(x,error_array_0)
 plt.plot(x,error_array_1)
 plt.plot(x,error_array_2)
 plt.plot(x,error_array_3)
-ax.set(xlabel = "number of iterations", 
+error_plot.set(xlabel = "number of iterations", 
        ylabel = "degree of error (range of 0-1)",
        title = "graph of error approaching zero for all 4 answers")
 plt.grid()
-plt.subplot(212)
-plt.plot([1,2,3,4])
+answer_plot = plt.subplot(212)
+plt.plot(x,answer_array_0)
+plt.plot(x,answer_array_1)
+plt.plot(x,answer_array_2)
+plt.plot(x,answer_array_3)
 plt.show()
