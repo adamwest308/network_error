@@ -31,7 +31,7 @@ np.random.seed(1)
 #a 3x1 matrix of weights
 random_weights = 2*np.random.random((3,1)) - 1
 
-for iteration in xrange(10000):
+for iteration in range(10000):
     
     #forward propagation
     #works out to a 4x1 matrix of propabilities for the answers
