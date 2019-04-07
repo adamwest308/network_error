@@ -1,5 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
+from numpy import *
+from matplotlib.pyplot import *
+from tkinter import *
 
 error_array_0 = []
 error_array_1 = []
@@ -12,34 +13,34 @@ answer_array_3 = []
 
 # sigmoid function
 def sigmoid(x, derivative = False):
-    return 1/(1+np.exp(-x))
+    return 1/(1+exp(-x))
 
 #find derivative of sigmoid function
 def sigmoid_derivative(x):
     return x * (1.0 - x)
     
 # input dataset
-input_dataset = np.array([  [0,0,1],
+input_dataset = array([  [0,0,1],
                             [0,1,1],
                             [1,0,1],
                             [1,1,1] ])
                 
 # output dataset
-output_dataset = np.array([[0,0,1,1]]).T
+output_dataset = array([[0,0,1,1]]).T
 
 # seed random numbers to make calculation
 # deterministic (just a good practice)
-np.random.seed(1)
+random.seed(1)
 
 # initialize weights randomly with mean 0
 #a 3x1 matrix of weights
-random_weights = 2*np.random.random((3,1)) - 1
+random_weights = 2*random.random((3,1)) - 1
 
 for iteration in range(10000):
     
     #forward propagation
     #works out to a 4x1 matrix of propabilities for the answers
-    calculated_answers = sigmoid(np.dot(input_dataset, random_weights))
+    calculated_answers = sigmoid(dot(input_dataset, random_weights))
     
     #calculate error
     #still a 4x1 matrix
@@ -53,7 +54,7 @@ for iteration in range(10000):
     #update weights
     #multiplication of the transformed input dataset (3x4 matrix)
     #and the changes 
-    random_weights += np.dot(input_dataset.T, weighted_inputs_change)
+    random_weights += dot(input_dataset.T, weighted_inputs_change)
     
     if iteration % 1000 == 0:
         error_array_0.append(error[0])
@@ -68,21 +69,31 @@ for iteration in range(10000):
 print ("Output after Training")
 print (calculated_answers)
 
-#
-error_plot = plt.subplot(211)
-x = np.arange(0, 10000, 1000)
-plt.plot(x,error_array_0)
-plt.plot(x,error_array_1)
-plt.plot(x,error_array_2)
-plt.plot(x,error_array_3)
+x = arange(0, 10000, 1000)
+
+error_plot = subplot(211)
+plot(x,error_array_0)
+plot(x,error_array_1)
+plot(x,error_array_2)
+plot(x,error_array_3)
 error_plot.set(xlabel = "number of iterations", 
-       ylabel = "degree of error (range of 0-1)",
-       title = "graph of error approaching zero for all 4 answers")
-plt.grid()
-answer_plot = plt.subplot(212)
-plt.plot(x,answer_array_0)
-plt.plot(x,answer_array_1)
-plt.plot(x,answer_array_2)
-plt.plot(x,answer_array_3)
-plt.tight_layout()
-plt.show()
+ylabel = "degree of error (range of 0-1)", 
+title = "graph of error approaching zero for all 4 answers")
+
+
+answer_plot = subplot(212)
+plot(x,answer_array_0)
+plot(x,answer_array_1)
+plot(x,answer_array_2)
+plot(x,answer_array_3)
+
+w1 = Tk()
+w1.title("Interface")
+w1.geometry('450x200')
+f1 = Frame(w1)
+f1.pack()
+
+grid()
+tight_layout()
+show()
+root.mainloop()
